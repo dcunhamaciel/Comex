@@ -7,6 +7,7 @@ use App\Http\Requests\ComexFilterRequest;
 use App\Http\Resources\ComexListResource;
 use App\Library\JsonResponseApi;
 use App\Services\ComexService;
+use App\DTOs\ComexFilterDto;
 
 class ComexListController extends Controller
 {
@@ -19,7 +20,7 @@ class ComexListController extends Controller
 
     public function index(ComexFilterRequest $request): JsonResponse
     {
-        $comexList = $this->comexService->findAll();
+        $comexList = $this->comexService->findAll(ComexFilterDto::fromApiRequest($request));
 
         return JsonResponseApi::index(ComexListResource::collection($comexList));
     }
