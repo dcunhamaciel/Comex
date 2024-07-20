@@ -10,6 +10,8 @@ class Comex extends Model
 {
     use HasFactory;
 
+    protected $table = 'comex';
+
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
