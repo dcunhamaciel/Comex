@@ -23,8 +23,8 @@ return new class extends Migration
             $table->decimal('amount', 15, 2);
             $table->timestamps();
 
-            $table->foreign('country_id')->references('id')->on('country');
-            $table->foreign('product_id')->references('id')->on('product');
+            $table->foreign('country_id')->references('id')->on('countries');
+            $table->foreign('product_id')->references('id')->on('products');
         });
     }
 
