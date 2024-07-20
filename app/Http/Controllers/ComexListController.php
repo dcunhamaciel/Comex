@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use App\Http\Requests\ComexFilterRequest;
 use App\Http\Resources\ComexListResource;
 use App\Library\JsonResponseApi;
 use App\Services\ComexService;
@@ -16,7 +17,7 @@ class ComexListController extends Controller
         $this->comexService = new ComexService();
     }
 
-    public function index(): JsonResponse
+    public function index(ComexFilterRequest $request): JsonResponse
     {
         $comexList = $this->comexService->findAll();
 
