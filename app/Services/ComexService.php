@@ -49,6 +49,22 @@ class ComexService
         return $comexList;
     }
 
+    public function getRankingByNcm(ComexFilterDto $comexFilterDto): Collection
+    {
+        $queryBuilder = new QueryBuilder($this->comex);
+        $queryBuilder = $this->addFilters($queryBuilder, $comexFilterDto);
+
+        $comexList = $queryBuilder
+            ->addSelect('product_id')
+            ->addSelect('sum(amount) as amount')
+            ->addGroupBy('product_id')
+            ->addOrderByDesc('amount')
+            ->build()
+            ->get();
+
+        return $comexList;
+    }
+
     private function addFilters(QueryBuilder $queryBuilder, ComexFilterDto $comexFilterDto): QueryBuilder
     {
         $queryBuilder
