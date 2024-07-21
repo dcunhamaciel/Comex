@@ -7,6 +7,7 @@ enum TransportEnum: string
     case AIR = 'A';
     case MARITIME = 'M';
     case ROAD = 'R';
+    case RAILWAY = 'F';
 
     public static function getText(self $transport): string
     {
@@ -14,6 +15,7 @@ enum TransportEnum: string
             TransportEnum::AIR => 'Aéreo',
             TransportEnum::MARITIME => 'Marítimo',
             TransportEnum::ROAD => 'Rodoviário',
+            TransportEnum::RAILWAY => 'Ferroviário',
         };
     }
 }
