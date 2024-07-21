@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\ComexFilterRequest;
-use App\Http\Resources\ComexListResource;
-use App\Library\JsonResponseApi;
 use App\Services\ComexService;
 use App\DTOs\ComexFilterDto;
 
-class ComexListController extends Controller
+class ComexDashboardTransportController extends Controller
 {
     private ComexService $comexService;
 
@@ -21,10 +19,8 @@ class ComexListController extends Controller
 
     public function index(ComexFilterRequest $request): JsonResponse
     {
-        $comexList = $this->comexService->findAll(ComexFilterDto::fromApiRequest($request));
+        $comexTotalByTransport = $this->comexService->getTotalByTransport(ComexFilterDto::fromApiRequest($request));
 
-        $resourceCollection = ComexListResource::collection($comexList);
-
-        return response()->json($resourceCollection->resource->toArray(), Response::HTTP_OK);
+        return response()->json($comexTotalByTransport, Response::HTTP_OK);
     }
 }

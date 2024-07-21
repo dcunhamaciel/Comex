@@ -2,6 +2,7 @@
 
 namespace App\Library;
 
+use \Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -64,6 +65,34 @@ class QueryBuilder
     public function addOrderByDesc(string $field): self
     {
         $this->addOrderBy($field, self::DESC_DIRECTION);
+
+        return $this;
+    }
+
+    public function addGroupBy(string $field): self
+    {
+        $this->builder->groupBy($field);
+
+        return $this;
+    }
+
+    public function addSelect(string $expression, array $bindings = [])
+    {
+        $this->builder->selectRaw($expression, $bindings);
+
+        return $this;
+    }
+
+    public function addJoin(string $table, Closure|string $first, string|null $operator = null, string|null $second = null, string $type = 'inner', bool $where = false)
+    {
+        $this->builder->join($table, $first, $operator, $second, $type, $where);
+
+        return $this;
+    }
+
+    public function addlimit(int $value)
+    {
+        $this->builder->limit($value);
 
         return $this;
     }

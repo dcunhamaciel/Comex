@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Library\QueryBuilder;
 use App\Models\Comex;
@@ -12,6 +13,8 @@ class ComexService
 {
     private Comex $comex;
 
+    private const QUANTITY_RANKING_NCM = 10;
+
     public function __construct()
     {
         $this->comex = new Comex();
@@ -20,15 +23,9 @@ class ComexService
     public function findAll(ComexFilterDto $comexFilterDto): LengthAwarePaginator
     {
         $queryBuilder = new QueryBuilder($this->comex);
+        $queryBuilder = $this->addFilters($queryBuilder, $comexFilterDto);
 
         $comexList = $queryBuilder
-            ->addEqualFilter('country_id', $comexFilterDto->countryId)
-            ->addEqualFilter('flow', $comexFilterDto->flow)
-            ->addEqualFilter('transport', $comexFilterDto->transport)
-            ->addGreaterThanOrEqualFilter('year', $comexFilterDto->yearFrom)
-            ->addLessThanOrEqualFilter('year', $comexFilterDto->yearTo)
-            ->addGreaterThanOrEqualFilter('amount', $comexFilterDto->amountFrom)
-            ->addLessThanOrEqualFilter('amount', $comexFilterDto->amountTo)
             ->addOrderByDesc('year')
             ->addOrderByDesc('month')
             ->addOrderByAsc('id')
@@ -36,5 +33,53 @@ class ComexService
             ->paginate(PaginationEnum::DEFAULT_ITEMS_PER_PAGE->value);
 
         return $comexList;
+    }
+
+    public function getTotalByTransport(ComexFilterDto $comexFilterDto): Collection
+    {
+        $queryBuilder = new QueryBuilder($this->comex);
+        $queryBuilder = $this->addFilters($queryBuilder, $comexFilterDto);
+
+        $comexList = $queryBuilder
+            ->addSelect('transport')
+            ->addSelect('sum(weight) as weight')
+            ->addSelect('sum(amount) as amount')
+            ->addGroupBy('transport')
+            ->build()
+            ->get();
+
+        return $comexList;
+    }
+
+    public function getRankingByNcm(ComexFilterDto $comexFilterDto): Collection
+    {
+        $queryBuilder = new QueryBuilder($this->comex);
+        $queryBuilder = $this->addFilters($queryBuilder, $comexFilterDto);
+
+        $comexList = $queryBuilder
+            ->addSelect('ncm')
+            ->addSelect('sum(amount) as amount')
+            ->addJoin('products', 'products.id', '=', 'comex.product_id')
+            ->addGroupBy('ncm')
+            ->addOrderByDesc('amount')
+            ->addLimit(self::QUANTITY_RANKING_NCM)
+            ->build()
+            ->get();
+
+        return $comexList;
+    }
+
+    private function addFilters(QueryBuilder $queryBuilder, ComexFilterDto $comexFilterDto): QueryBuilder
+    {
+        $queryBuilder
+            ->addEqualFilter('country_id', $comexFilterDto->countryId)
+            ->addEqualFilter('flow', $comexFilterDto->flow)
+            ->addEqualFilter('transport', $comexFilterDto->transport)
+            ->addGreaterThanOrEqualFilter('year', $comexFilterDto->yearFrom)
+            ->addLessThanOrEqualFilter('year', $comexFilterDto->yearTo)
+            ->addGreaterThanOrEqualFilter('amount', $comexFilterDto->amountFrom)
+            ->addLessThanOrEqualFilter('amount', $comexFilterDto->amountTo);
+
+        return $queryBuilder;
     }
 }

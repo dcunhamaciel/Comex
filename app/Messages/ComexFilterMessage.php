@@ -16,5 +16,5 @@ enum ComexFilterMessage: string
     case GREATER_OR_EQUAL_AMOUT_TO_THAN_AMOUT_FROM = 'Valor final deve ser maior ou igual do que o valor inicial';
 
     case INVALID_FLOW = 'Flow Inválido. Deve ser E=Exportação | I=Importação.';
-    case INVALID_TRANSPORT = 'Transporte Inválido. Deve ser A=Aéreo | M=Marítimo | R=Rodoviário.';
+    case INVALID_TRANSPORT = 'Transporte Inválido. Deve ser A=Aéreo | M=Marítimo | R=Rodoviário | F=Ferroviário.';
 }

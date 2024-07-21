@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\ComexFilterRequest;
-use App\Http\Resources\ComexListResource;
-use App\Library\JsonResponseApi;
 use App\Services\ComexService;
 use App\DTOs\ComexFilterDto;
 
-class ComexListController extends Controller
+class ComexDashboardRankingNcmController extends Controller
 {
     private ComexService $comexService;
 
@@ -21,10 +19,8 @@ class ComexListController extends Controller
 
     public function index(ComexFilterRequest $request): JsonResponse
     {
-        $comexList = $this->comexService->findAll(ComexFilterDto::fromApiRequest($request));
+        $comexRankingNcm = $this->comexService->getRankingByNcm(ComexFilterDto::fromApiRequest($request));
 
-        $resourceCollection = ComexListResource::collection($comexList);
-
-        return response()->json($resourceCollection->resource->toArray(), Response::HTTP_OK);
+        return response()->json($comexRankingNcm, Response::HTTP_OK);
     }
 }
