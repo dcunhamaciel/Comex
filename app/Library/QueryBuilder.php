@@ -68,6 +68,20 @@ class QueryBuilder
         return $this;
     }
 
+    public function addGroupBy(string $field): self
+    {
+        $this->builder->groupBy($field);
+
+        return $this;
+    }
+
+    public function addSelect(string $expression, array $bindings = [])
+    {
+        $this->builder->selectRaw($expression, $bindings);
+
+        return $this;
+    }
+
     public function build(): Builder
     {
         return $this->builder;
