@@ -13,6 +13,8 @@ class ComexService
 {
     private Comex $comex;
 
+    private const QUANTITY_RANKING_NCM = 10;
+
     public function __construct()
     {
         $this->comex = new Comex();
@@ -55,10 +57,12 @@ class ComexService
         $queryBuilder = $this->addFilters($queryBuilder, $comexFilterDto);
 
         $comexList = $queryBuilder
-            ->addSelect('product_id')
+            ->addSelect('ncm')
             ->addSelect('sum(amount) as amount')
-            ->addGroupBy('product_id')
+            ->addJoin('products', 'products.id', '=', 'comex.product_id')
+            ->addGroupBy('ncm')
             ->addOrderByDesc('amount')
+            ->addLimit(self::QUANTITY_RANKING_NCM)
             ->build()
             ->get();
 
