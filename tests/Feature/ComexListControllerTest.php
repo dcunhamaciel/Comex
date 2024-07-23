@@ -34,10 +34,9 @@ class ComexListControllerTest extends TestCase
         $this->comexCollection = Comex::factory(self::RECORD_COUNT)->create();
     }
 
-    public function testIndexReturnsComexList(): void
+    public function testIndexReturnsSuccessfully(): void
     {
-        $response = $this
-            ->postJson(route(self::ROUTE_INDEX));
+        $response = $this->postJson(route(self::ROUTE_INDEX));
 
         $response
             ->assertStatus(Response::HTTP_OK)
@@ -54,8 +53,7 @@ class ComexListControllerTest extends TestCase
     {
         $firstComex = $this->comexCollection->first();
 
-        $response = $this
-            ->postJson(route(self::ROUTE_INDEX));
+        $response = $this->postJson(route(self::ROUTE_INDEX));
 
         $response
             ->assertJsonFragment(
