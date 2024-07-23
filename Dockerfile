@@ -8,12 +8,14 @@ RUN docker-php-ext-install pdo
 
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && docker-php-ext-install pdo pdo_pgsql pgsql zip bcmath gd
 
+COPY ./docker-entrypoint.sh /tmp
+
 WORKDIR /app
 
 COPY . /app
 
 RUN composer install
 
-CMD php artisan serve --host=localhost --port=9000
+ENTRYPOINT ["sh", "/tmp/docker-entrypoint.sh"]
 
 EXPOSE 9000
