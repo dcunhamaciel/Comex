@@ -8,12 +8,11 @@ use App\Library\QueryBuilder;
 use App\Models\Comex;
 use App\DTOs\ComexFilterDto;
 use App\Enums\PaginationEnum;
+use App\Enums\DashboardEnum;
 
 class ComexService
 {
     private Comex $comex;
-
-    private const QUANTITY_RANKING_NCM = 10;
 
     public function __construct()
     {
@@ -30,7 +29,7 @@ class ComexService
             ->addOrderByDesc('month')
             ->addOrderByAsc('id')
             ->build()
-            ->paginate(PaginationEnum::DEFAULT_ITEMS_PER_PAGE->value);
+            ->paginate(PaginationEnum::ITEMS_PER_PAGE->value);
 
         return $comexList;
     }
@@ -62,7 +61,7 @@ class ComexService
             ->addJoin('products', 'products.id', '=', 'comex.product_id')
             ->addGroupBy('ncm')
             ->addOrderByDesc('amount')
-            ->addLimit(self::QUANTITY_RANKING_NCM)
+            ->addLimit(DashboardEnum::QUANTITY_ITEMS_RANKING->value)
             ->build()
             ->get();
 
