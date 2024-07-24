@@ -19,7 +19,7 @@ class ComexDashboardTransportControllerTest extends TestCase
     private Collection $comexCollection;
 
     private const ROUTE_INDEX = 'comex-dashboard-transport';
-    private const RECORD_COUNT = 20;
+    private const COMEX_RECORD_COUNT = 20;
 
     public function setUp(): void
     {
@@ -28,7 +28,7 @@ class ComexDashboardTransportControllerTest extends TestCase
         Country::factory()->create();
         Product::factory()->create();
 
-        $this->comexCollection = Comex::factory(self::RECORD_COUNT)->create();
+        $this->comexCollection = Comex::factory(self::COMEX_RECORD_COUNT)->create();
     }
 
     public function testIndexReturnsSuccessfully(): void
@@ -54,7 +54,7 @@ class ComexDashboardTransportControllerTest extends TestCase
             ->assertJsonFragment(
                 [
                     'transport' => $firstTransport['transport'],
-                    'amount' => strval($firstTransport['amount']),
+                    'amount' => number_format($firstTransport['amount'], 2, '.', ''),
                 ]
             );
     }
