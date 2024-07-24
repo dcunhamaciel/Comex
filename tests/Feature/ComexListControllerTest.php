@@ -43,7 +43,7 @@ class ComexListControllerTest extends TestCase
             ->assertJsonFragment(
                 [
                     'current_page' => self::CURRENT_PAGE,
-                    'per_page' => PaginationEnum::DEFAULT_ITEMS_PER_PAGE,
+                    'per_page' => PaginationEnum::ITEMS_PER_PAGE,
                     'total' => self::RECORD_COUNT,
                 ]
             );

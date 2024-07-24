@@ -29,7 +29,7 @@ class ComexService
             ->addOrderByDesc('month')
             ->addOrderByAsc('id')
             ->build()
-            ->paginate(PaginationEnum::DEFAULT_ITEMS_PER_PAGE->value);
+            ->paginate(PaginationEnum::ITEMS_PER_PAGE->value);
 
         return $comexList;
     }
