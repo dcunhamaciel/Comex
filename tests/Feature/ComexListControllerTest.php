@@ -64,8 +64,8 @@ class ComexListControllerTest extends TestCase
                     'transport' => TransportEnum::getText($firstComex->transport),
                     'year' => intval($firstComex->year),
                     'month' => intval($firstComex->month),
-                    'weight' => strval($firstComex->weight),
-                    'amount' => strval($firstComex->amount)
+                    'weight' => number_format($firstComex->weight, 4, '.', ''),
+                    'amount' => number_format($firstComex->amount, 2, '.', '')
                 ]
             );
     }
