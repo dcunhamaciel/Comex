@@ -22,6 +22,7 @@
             <directory>app/Http/Middleware</directory>
             <directory>app/Interfaces</directory>
             <directory>app/Messages</directory>
+            <directory>app/Models</directory>
             <directory>app/Providers</directory>
             <file>app/Http/Controllers/Controller.php</file>
             <file>app/Http/Kernel.php</file>
