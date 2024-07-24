@@ -10,8 +10,6 @@ use Tests\TestCase;
 use App\Models\Country;
 use App\Models\Product;
 use App\Models\Comex;
-use App\Enums\PaginationEnum;
-use App\Enums\FlowEnum;
 use App\Enums\TransportEnum;
 
 class ComexDashboardTransportControllerTest extends TestCase
