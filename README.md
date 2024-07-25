@@ -1,66 +1,70 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Logcomex Teste
+Neste teste para a área de engenharia, a partir dos requisitos apresentados pela Logcomex, a ideia é de construir um BI.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### Tecnologias Utilizadas
 
-## About Laravel
+- PHP 8.1
+- Laravel 10.10
+- PostgreSQL
+- Docker
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Endpoints construídos:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### 1. Lista de Importações/Exportações (comex-list)
+- URL: http://localhost:9000/api/v1/comex-list
+- Objetivo: retornar uma lista de Importações/Exportações ordenados por ano/mês de forma decrescente
+- Exemplo de Json:
+  
+  ![image](https://github.com/user-attachments/assets/c86c7683-8bcc-4f3b-84d2-b3e89b694a2c)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+#### 2. Dashboard por tipo de Transporte (comex-dashboard-transport)
+- URL: http://localhost:9000/api/v1/comex-dashboard-transport
+- Objetivo: retornar o total de Importações/Exportações por tipo de Transporte 
+- Exemplo de Json:
 
-## Learning Laravel
+![image](https://github.com/user-attachments/assets/04979140-859f-47b0-9101-7835ced22913)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+#### 3. Dashboard por Ranking de NCM (comex-dashboard-ranking-ncm)
+- URL: http://localhost:9000/api/v1/comex-dashboard-ranking-ncm
+- Objetivo: retornar o total de Importações/Exportações por NCM (ranking dos 10 maiores valores)
+- Exemplo de Json:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+![image](https://github.com/user-attachments/assets/a430ba88-75f2-437f-8bff-614d50d6782b)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Filtros disponíveis:
 
-## Laravel Sponsors
+Todos os Endpoints possuem os seguintes filtros:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- country => código do país
+- flow => tipo de fluxo (E=Exportação | I=Importação)
+- transport => tipo de transporte (A=Aéreo | M=Marítimo | R=Rodoviário | F=Ferroviário)
+- year.from => ano inicial
+- year.to => ano final
+- amount.from => valor inicial
+- amount.to => valor final
 
-### Premium Partners
+Exemplo de Json:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+![image](https://github.com/user-attachments/assets/0a225d75-cbe4-4816-916f-7088f4b41234)
 
-## Contributing
+### Orientações para Executar o Projeto
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. Baixar o projeto a partir do GitHub:
+   git remote add origin https://github.com/dcunhamaciel/Comex.git
+2. Fazer o build da imagem do docker:
+   docker build -t nome-imagem .
+3. Levantar o container do docker a partir do compose:
+   docker compose up
 
-## Code of Conduct
+### Orientações para Executar os Testes Unitários
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. Cria um Bancos de Dados de sua preferência
+2. Duplicar o arquivo ".env.example" com o nome de ".env.testing"
+3. Configurar as variáveis de ambiente pré-fixadas com DB_ (exemplo: DB_DATABASE) do arquivo ".env.testing" para o banco criado
+4. Executar os testes: php artisan test
 
-## Security Vulnerabilities
+### Considerações
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+O desenvolvimento desse teste foi um grande desafio pessoal e profissional, onde pude melhorar e obter novos conhecimentos, principalmente na configuração do Docker.
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Agradeço a Logcomex pela oportunidade de fazer este teste.
