@@ -50,10 +50,17 @@ Exemplo de Json:
 ### Orientações para Executar o Projeto
 
 1. Baixar o projeto a partir do GitHub:
+   
+   git init
+   
    git remote add origin https://github.com/dcunhamaciel/Comex.git
-2. Fazer o build da imagem do docker:
+   
+   git pull origin main
+3. Fazer o build da imagem do docker:
+   
    docker build -t nome-imagem .
-3. Levantar o container do docker a partir do compose:
+4. Levantar o container do docker a partir do compose:
+   
    docker compose up
 
 ### Orientações para Executar os Testes Unitários
