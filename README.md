@@ -51,24 +51,24 @@ Exemplo de Json:
 
 1. Baixar o projeto a partir do GitHub:
    
-   git init
+   ```git init```
    
-   git remote add origin https://github.com/dcunhamaciel/Comex.git
+   ```git remote add origin https://github.com/dcunhamaciel/Comex.git```
    
-   git pull origin main
+   ```git pull origin main```
 3. Fazer o build da imagem do docker:
    
-   docker build -t nome-imagem .
+   ```docker build -t nome-imagem .```
 4. Levantar o container do docker a partir do compose:
    
-   docker compose up
+   ```docker compose up```
 
 ### Orientações para Executar os Testes Unitários
 
 1. Cria um Bancos de Dados de sua preferência
 2. Duplicar o arquivo ".env.example" com o nome de ".env.testing"
 3. Configurar as variáveis de ambiente pré-fixadas com DB_ (exemplo: DB_DATABASE) do arquivo ".env.testing" para o banco criado
-4. Executar os testes: php artisan test
+4. Executar os testes: ```php artisan test```
 
 ### Observações
 
