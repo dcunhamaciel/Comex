@@ -12,7 +12,7 @@ Neste teste para a área de engenharia, a partir dos requisitos apresentados pel
 
 #### 1. Lista de Importações/Exportações (comex-list)
 - URL: http://localhost:9000/api/v1/comex-list
-- Objetivo: retornar uma lista de Importações/Exportações ordenados por ano/mês de forma decrescente
+- Objetivo: retornar uma lista de Importações/Exportações ordenados por ano/mês de forma decrescente, paginados de 20 em 20 registros
 - Exemplo de Json:
   
   ![image](https://github.com/user-attachments/assets/c86c7683-8bcc-4f3b-84d2-b3e89b694a2c)
@@ -63,6 +63,11 @@ Exemplo de Json:
 3. Configurar as variáveis de ambiente pré-fixadas com DB_ (exemplo: DB_DATABASE) do arquivo ".env.testing" para o banco criado
 4. Executar os testes: php artisan test
 
+### Observações
+
+- As Migrations e Seeders estão sendo executadas ao subir o container do docker
+- O Banco de Dados está sendo criado e destruído junto com o container do docker
+  
 ### Considerações
 
 O desenvolvimento desse teste foi um grande desafio pessoal e profissional, onde pude melhorar e obter novos conhecimentos, principalmente na configuração do Docker.
